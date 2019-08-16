@@ -1,0 +1,15 @@
+dict_user = {"abc": "123123", "Albert": "1", "root": "root"}
+
+
+while True:
+    name = input("enter your name")
+    password = input("enter your password")
+    if name not in dict_user:
+        print("you don't have name")
+        continue
+    else:
+        if dict_user[name] == password:
+            print("login successfully")
+            break
+        else:
+            print("error")
