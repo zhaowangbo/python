@@ -1,1 +1,2 @@
-{"name":"albert", "password": "123"}
+{"name":"albert", "password":"123"}
+True

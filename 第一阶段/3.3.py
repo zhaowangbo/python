@@ -9,6 +9,6 @@ def find_smaller_and_bigger(list_number, number):
     return dict_number
 
 
-a = [11, 22, 33, 44, 55, 66, 77, 88, 99, 90]
+a = [11, 22, 33, 44, 55, 66, 77, 88, 99, 90
 b = find_smaller_and_bigger(a, 66)
 print(b)
