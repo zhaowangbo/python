@@ -122,11 +122,45 @@ def auth(func):
 
 
 
-@timer
-@auth
-def index():
-    time.sleep(1)
-    print("welcome to index page")
-    return 1
+db = 'a.txt'
+login_status = {'status': False}
 
-a = index()
+
+def auth(auth_type='file'):
+    def auth2(func):
+        def wrapper(*args, **kwargs):
+            if login_status['status']:
+                return func(*args, **kwargs)
+            if auth_type == 'file':
+                with open(db, encoding='utf-8') as f:
+                    dic = eval(f.read())
+                name = input('username: ').strip()
+                password = input('password: ').strip()
+                if name == dic['name'] and password == dic['password']:
+                    login_status['status'] = True
+                    res = func(*args, **kwargs)
+                    return res
+                else:
+                    print('username or password error')
+            elif auth_type == 'sql':
+                pass
+            else:
+                pass
+
+        return wrapper
+
+    return auth2
+
+
+@auth()
+def index():
+    print('index')
+
+
+@auth(auth_type='file')
+def home(name):
+    print('welcome %s to home' % name)
+
+
+index()
+home('albert')

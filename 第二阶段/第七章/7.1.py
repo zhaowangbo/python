@@ -2,49 +2,89 @@ import time
 import os
 
 
-def auth(func):
-    def wrapper(*args, **kwargs):
-        user_list = []
-        with open('user.txt') as file:
-            for line in file.readlines():
-                user_list.append(line)
+# def auth(func):
+#     def wrapper(*args, **kwargs):
+#         user_list = []
+#         with open('user.txt') as file:
+#             for line in file.readlines():
+#                 user_list.append(line)
+#
+#         if len(user_list) == 1:
+#             print("have never loged in")
+#             current_user = eval(user_list[0])
+#
+#             name = input("input your username")
+#             password = input("input your password")
+#
+#             if name == current_user['name'] and password == current_user['password']:
+#                 print("successfully")
+#
+#                 with open('user.txt', 'r+') as file:
+#                     file.seek(0, 2)
+#                     file.write("True")
+#                 return func(*args, **kwargs)
+#
+#             else:
+#                 print("username or password is wrong")
+#
+#         else:
+#             print("you have loged in , you don't need to log in again!!")
+#
+#             return func(*args, **kwargs)
+#
+#     return wrapper
+#
+# # index = auth(index)
+# @auth
+# def index(name):
+#     time.sleep(3)
+#     print("welcome %s" % name)
+#     return 1
+# @auth
+# def home(name):
+#     time.sleep(3)
+#     print("welcome %s" % name)
+#     return 2
+#
+# index('albert')
+# home('albert')
+db = 'user.txt'
+login_status = {"status": False}
 
-        if len(user_list) == 1:
-            print("have never loged in")
-            current_user = eval(user_list[0])
-
-            name = input("input your username")
-            password = input("input your password")
-
-            if name == current_user['name'] and password == current_user['password']:
-                print("successfully")
-
-                with open('user.txt', 'r+') as file:
-                    file.seek(0, 2)
-                    file.write("True")
+def auth(auth_type='file'):
+    def auth2(func):
+        def wrapper(*args, **kwargs):
+            if login_status["status"]:
                 return func(*args, **kwargs)
 
+            if auth_type == 'file':
+                with open(db, encoding='utf-8') as f:
+                    dic = eval(f.read())
+                    name = input("input you name").strip()
+                    pwd = input("input you pwd").strip()
+
+                    if name == dic["name"] and pwd == dic["password"]:
+                        login_status["status"] = True
+                        res = func(*args, **kwargs)
+                        return res
+                    else:
+                        print("wrong")
+            elif auth_type == 'sql':
+                pass
             else:
-                print("username or password is wrong")
+                pass
+        return wrapper
+    return auth2
 
-        else:
-            print("you have loged in , you don't need to log in again!!")
 
-            return func(*args, **kwargs)
 
-    return wrapper
+@auth()
+def index():
+    print("index")
+index()
 
-# index = auth(index)
-@auth
-def index(name):
-    time.sleep(3)
-    print("welcome %s" % name)
-    return 1
-@auth
+@auth("file")
 def home(name):
-    time.sleep(3)
-    print("welcome %s" % name)
-    return 2
+    print(name)
 
-index('albert')
-home('albert')
+home("abc")
