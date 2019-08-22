@@ -50,7 +50,83 @@ import sys
 #
 # auth(name='Albert', pwd='123', group='group1')
 
-import numpy as np
-A = np.arange(16)
-print(A)
-print(A[: : -1])
+# import time
+#
+#
+#
+# def outer(func):
+#     def wrapper(*args, **kwargs):
+#         start_time = time.time()
+#         res = func(*args, **kwargs)
+#         stop_time = time.time()
+#         print(stop_time - start_time)
+#         return res
+#
+#     return wrapper
+#
+#
+# def index():
+#     print("index page")
+#     return 1
+#
+#
+# def home(a):
+#     print(a)
+#     return 2
+# index = outer(index)
+# print(index())
+#
+# hone = outer(home)
+# home("sdfasdf")
+#
+
+import time
+
+current_user = {
+    'username': None
+}
+
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        res = func(*args, **kwargs)
+        stop_time = time.time()
+        print("run time ", stop_time-start_time)
+        return res
+
+    return wrapper
+
+def auth(func):
+    def wrapper(*args, **kwargs):
+        if current_user['username']:
+            print("have loged in")
+            res = func(*args, **kwargs)
+            return res
+
+        name = input("input your name").strip()
+        pwd = input("input your pwd").strip()
+
+        if name =='albert' and pwd == '123':
+            print("successfully")
+            current_user['username'] = name
+            res = func(*args, **kwargs)
+            return res
+        else:
+            print("wrong")
+
+    return wrapper
+
+
+
+
+
+
+@timer
+@auth
+def index():
+    time.sleep(1)
+    print("welcome to index page")
+    return 1
+
+a = index()
