@@ -85,51 +85,88 @@
 #
 # home()
 
+# import time
+# # import random
+# # user_data = {
+# #     'user':None,
+# #     "login": False,
+# #     "now_time": time.time()
+# # }
+# # db_username = 'albert'
+# # db_password = '123'
+# #
+# #
+# #
+# # def auth(func):
+# #     def wrapper(*args, **kwargs):
+# #         passed_time = time.time() - user_data["now_time"]
+# #
+# #         if user_data["user"] and passed_time < 3:
+# #             return func(*args, *kwargs)
+# #
+# #         else:
+# #             while True:
+# #                 username = input("input you username")
+# #                 pwd = input("input your pwd")
+# #
+# #                 if username == db_username and pwd == db_password:
+# #                     print("log in successfully")
+# #                     user_data["user"] = username
+# #                     user_data["login"] = True
+# #                     user_data["now_time"] = time.time()
+# #
+# #                     return func(*args, **kwargs)
+# #                 else:
+# #                     print("wrong")
+# #     return wrapper
+# #
+# # @auth
+# # def index():
+# #     print("this is index page")
+# #
+# # @auth
+# # def home(name):
+# #     print("this is %s home page" % name)
+# #
+# # index()
+# # time.sleep(1)
+# # home("zhao")
+# # time.sleep(3)
+# # home("zhao")
 import time
-import random
-user_data = {
-    'user':None,
-    "login": False,
-    "now_time": time.time()
+user = {
+    "name":"albert",
+    "password":"123",
+    "login_status": False,
+    "login_time": time.time()
 }
-db_username = 'albert'
-db_password = '123'
-
-
 
 def auth(func):
     def wrapper(*args, **kwargs):
-        passed_time = time.time() - user_data["now_time"]
-
-        if user_data["user"] and passed_time < 3:
-            return func(*args, *kwargs)
-
+        if user["login_status"] and time.time() - user["login_time"] < 3:
+            res = func(*args, **kwargs)
+            return res
         else:
-            while True:
-                username = input("input you username")
-                pwd = input("input your pwd")
+            name = input("input your name")
+            password = input("input yor password")
 
-                if username == db_username and pwd == db_password:
-                    print("log in successfully")
-                    user_data["user"] = username
-                    user_data["login"] = True
-                    user_data["now_time"] = time.time()
+            if name == user["name"] and password == user["password"]:
+                print("logined successfuly")
+                user["login_status"] = True
+                user["login_time"] = time.time()
 
-                    return func(*args, **kwargs)
-                else:
-                    print("wrong")
+            else:
+                print("wrong")
     return wrapper
+
 
 @auth
 def index():
-    print("this is index page")
+    print("welcome")
 
-@auth
-def home(name):
-    print("this is %s home page" % name)
 
 index()
 time.sleep(1)
-home("zhao")
+index()
 time.sleep(3)
-home("zhao")
+index()

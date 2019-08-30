@@ -48,43 +48,77 @@ import os
 #
 # index('albert')
 # home('albert')
-db = 'user.txt'
+# db = 'user.txt'
+# login_status = {"status": False}
+#
+# def auth(auth_type='file'):
+#     def auth2(func):
+#         def wrapper(*args, **kwargs):
+#             if login_status["status"]:
+#                 return func(*args, **kwargs)
+#
+#             if auth_type == 'file':
+#                 with open(db, encoding='utf-8') as f:
+#                     dic = eval(f.read())
+#                     name = input("input you name").strip()
+#                     pwd = input("input you pwd").strip()
+#
+#                     if name == dic["name"] and pwd == dic["password"]:
+#                         login_status["status"] = True
+#                         res = func(*args, **kwargs)
+#                         return res
+#                     else:
+#                         print("wrong")
+#             elif auth_type == 'sql':
+#                 pass
+#             else:
+#                 pass
+#         return wrapper
+#     return auth2
+#
+#
+#
+# @auth()
+# def index():
+#     print("index")
+# index()
+#
+# @auth("file")
+# def home(name):
+#     print(name)
+#
+# home("abc")
+
+user = 'user.txt'
 login_status = {"status": False}
 
-def auth(auth_type='file'):
+def auth(file):
     def auth2(func):
         def wrapper(*args, **kwargs):
+
             if login_status["status"]:
-                return func(*args, **kwargs)
+                res = func(*args, **kwargs)
+                return res
 
-            if auth_type == 'file':
-                with open(db, encoding='utf-8') as f:
-                    dic = eval(f.read())
-                    name = input("input you name").strip()
-                    pwd = input("input you pwd").strip()
-
-                    if name == dic["name"] and pwd == dic["password"]:
-                        login_status["status"] = True
-                        res = func(*args, **kwargs)
-                        return res
-                    else:
-                        print("wrong")
-            elif auth_type == 'sql':
-                pass
             else:
-                pass
+                with open(file, 'r') as f:
+                    user = eval(f.read())
+
+                name = input("input your name")
+                password = input("in put your pwd")
+                if name == user["name"] and password == user["password"]:
+                    print("log successfully")
+                    res = func(*args, **kwargs)
+                    login_status["status"] = True
+                    return res
         return wrapper
     return auth2
 
-
-
-@auth()
+# auth(user) = auth2
+# index = auth2(index)
+@auth(user)
 def index():
-    print("index")
+    print("welcom")
+
 index()
-
-@auth("file")
-def home(name):
-    print(name)
-
-home("abc")
+index()
