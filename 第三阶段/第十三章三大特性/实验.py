@@ -173,25 +173,104 @@ import setting
 import time
 import hashlib
 
-class People:
+# class People:
+#
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+#
+#     def tell(self):
+#         print("%s %s" % (self.name, self.age))
+#
+#     @classmethod
+#     def read_from_conf(cls):
+#         return People(setting.NAME, setting.AGE)
+#
+#     @staticmethod
+#     def create_id():
+#         m = hashlib.md5()
+#         m.update(str(time.clock()).encode('utf-8'))
+#         return m.hexdigest()
+#
+# p = People(setting.NAME, setting.AGE)
+# print(People.create_id)
+# print(p.create_id)
+# import abc
+#
+# class Animal(metaclass=abc.ABCMeta):
+#     @abc.abstractclassmethod
+#     def talk(self):
+#         pass
+#
+#     @abc.abstractclassmethod
+#     def run(self):
+#         pass
+#
+#     def abc(self):
+#         print("b")
+#
+#
+# class People(Animal):
+#
+#     def run(self):
+#         print("a")
+#
+#     def talk(self):
+#         print("a")
+#
+# a = People()
+#
+# a.abc()
+    # def run(self):
+    #     print("running")
 
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+# a = People()
 
-    def tell(self):
-        print("%s %s" % (self.name, self.age))
+import abc
+class Animal(metaclass=abc.ABCMeta):
+    @abc.abstractclassmethod
+    def talk(self):
+        pass
 
-    @classmethod
-    def read_from_conf(cls):
-        return People(setting.NAME, setting.AGE)
+class People(Animal):
+    def talk(self):
+        print("say hello")
 
-    @staticmethod
-    def create_id():
-        m = hashlib.md5()
-        m.update(str(time.clock()).encode('utf-8'))
-        return m.hexdigest()
+class Dog(Animal):
 
-p = People(setting.NAME, setting.AGE)
-print(People.create_id)
-print(p.create_id)
+
+
+
+    def talk(self):
+        print("heng")
+
+def func(obj):
+    obj.talk()
+
+#
+# p = People()
+# d = Dog()
+#
+# func(p)
+# func(d)
+#
+
+
+class Txt:
+    def read(self):
+        print("txt read")
+    def write(self):
+        pritn("txt write")
+
+
+class Disk:
+    def read(self):
+        print("txta read")
+
+    def write(self):
+        pritn("txta write")
+
+obj1 = Txt()
+obj2 = Disk()
+obj1.read()
+obj2.read()

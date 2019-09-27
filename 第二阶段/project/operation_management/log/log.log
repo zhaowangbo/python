@@ -1,0 +1,6 @@
+[2019-09-17 22:04:12,309][MainThread:7324][task_id:admin][admin_interface.py:16][INFO][admin register successfully]
+[2019-09-18 10:24:00,746][MainThread:8936][task_id:admin][admin_interface.py:16][INFO][admin register successfully]
+[2019-09-18 11:33:05,579][MainThread:3796][task_id:admin][admin_interface.py:27][INFO][admin zhao create school successfully]
+[2019-09-18 22:10:18,740][MainThread:232][task_id:admin][admin_interface.py:27][INFO][admin zhao create school successfully]
+[2019-09-18 22:10:23,729][MainThread:232][task_id:admin][admin_interface.py:39][INFO][admin zhao has created teacher zhaowang successfully]
+[2019-09-18 22:11:08,954][MainThread:1468][task_id:admin][admin_interface.py:51][INFO][admin zhao create course AI in school NPU]

@@ -1,23 +1,30 @@
-try:
-    print("starting...")
-    if
+class A(object):
+    def foo(self, x):
+        print("executing foo(%s, %s)" % (self, x))
+        print("self", self)
 
-    print("ending ....")
-except Exception as e:
-    print("a")
-a =
-#
-#
-# print(TypeError)
-#
-# obj = TypeError("类型错误")
-# print(obj)
+    @classmethod
+    def class_foo(cls, x):
+        print("executing class_foo(%s, %s)" % (cls, x))
+        print("cls", cls)
 
-# class People:
-#     def __init__(self, name):
-#         if not isinstance(name, str):
-#             raise TypeError("must str")
+    @staticmethod
+    def static_foo(x):
+        print("executing static_foo(%s)" % (x))
+
+
+a = A()
+
+# print(a.foo)
+# print(a.class_foo)
+# print(a.static_foo)
 #
-#         self.name = name
-#
-# p = People("a")
+
+# a.foo(1)
+# A.foo(a, 1)
+
+# A.class_foo(1)
+# a.class_foo(1)
+
+print(A.__dict__)
+print(a.__dict__)
